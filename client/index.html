@@ -1,0 +1,61 @@
+<html lang="en"><head>
+	<meta charset="UTF-8">
+	<title>facebook/twitter integration</title>
+	<link rel="stylesheet" href="app.css">
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.6.0/css/font-awesome.min.css">
+	<script type="text/javascript" src="https://rawgit.com/deepstreamIO/deepstream.io-client-js/master/dist/deepstream.min.js"></script>
+</head>
+
+<body>
+	<style>
+
+	</style>
+
+	<div class="login">
+	    	<a href="/login/facebook" class="facebook">
+	    		<i class="fa fa-facebook"></i>
+	    		<span>Sign In with Facebook</span>
+	    	</a>
+	    	
+	    	<a href="/login/twitter" class="twitter">
+	    		<i class="fa fa-twitter"></i>
+	    		<span>Sign In with Twitter</span>
+	    	</a>
+	</div>	
+
+	<div class="app">
+		Login Success<br/><br/>Application Started!
+
+		<a href="/logout" class="logout">
+	    	<i class="fa fa-twitter"></i>
+	    	<span>Logout</span>
+	    </a>
+	</div>
+
+	<script>
+	var ds = deepstream( 'cdcf3d94.ngrok.io', {
+        path: '/deepstream',
+        cookie: 'sid',
+        cookiePath: 'sid'
+    } );
+
+	function login() {
+		ds.login( {}, function( success, errorEvent, errorMessage ) {
+			if( success ) {
+				console.log( 'Logged in' );
+				document.body.className = 'loggedin';
+			} else {
+				console.log( 'Failed to login.' );
+			}		
+		} );
+
+		ds.on( 'error', function( error ) {
+			console.log( 'An error occured', error );
+		} );
+	}
+	
+	login();
+	</script>
+</body>
+
+</html>
